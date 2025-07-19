@@ -41,7 +41,7 @@
           placeholder="Enter your question"
         />
       </div>
-      <button class="btn btn-success" onclick="sendMessage()">Ask!</button>
+      <button class="btn btn-success" onclick="sendMessage()">Tanya Bang Tekno!</button>
       <div id="response"></div>
     </div>
     <script>
@@ -54,28 +54,24 @@
         }
         responseDiv.innerHTML = "Mohon Ditunggu...";
         try {
-          const response = await fetch(
-            "https://openrouter.ai/api/v1/chat/completions",
-            {
-              method: "POST",
-              headers: {
-                Authorization:
-                  "Bearer <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>",
-                "HTTP-Referer": "https://eriansahok.github.io/aloai/",
-                "X-Title": "Alo Ai",
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify({
-                model: "deepseek/deepseek-r1:free",
-                messages: [{ role: "user", content: input }],
-              }),
-            }
-          );
-          const data = await response.json();
-          console.log(data);
-          const markdownText =
-            data.choices?.[0]?.message?.content || "No response received.";
-          responseDiv.innerHTML = marked.parse(markdownText);
+fetch("https://openrouter.ai/api/v1/chat/completions", {
+  method: "POST",
+  headers: {
+    "Authorization": "Bearer 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",
+    "HTTP-Referer": "https://teknoaiglobal.com", // Optional. Site URL for rankings on openrouter.ai.
+    "X-Title": "Tekno Ai Global", // Optional. Site title for rankings on openrouter.ai.
+    "Content-Type": "application/json"
+  },
+  body: JSON.stringify({
+    "model": "deepseek/deepseek-r1:free",
+    "messages": [
+      {
+        "role": "user",
+        "content": "What is the meaning of life?"
+      }
+    ]
+  })
+});
         } catch (error) {
           responseDiv.innerHTML = "Error: " + error.message;
         }
