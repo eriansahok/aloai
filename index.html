@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ALO AI</title>
+    <title>ALO TEKNO AI GLOBAL</title>
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css"
@@ -38,7 +38,7 @@
           type="text"
           class="form-control"
           id="userInput"
-          placeholder="Enter your question"
+          placeholder="Mau Tanya Apa Bang"
         />
       </div>
       <button class="btn btn-success" onclick="sendMessage()">Tanya Bang Tekno!</button>
@@ -54,24 +54,28 @@
         }
         responseDiv.innerHTML = "Mohon Ditunggu...";
         try {
-fetch("https://openrouter.ai/api/v1/chat/completions", {
+          const url = "https://openrouter.ai/api/v1/chat/completions";
+const headers = {
+  "Authorization": `Bearer ${process.env.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}`,
+  "Content-Type": "application/json"
+};
+const payload = {
+  "messages": [
+    {
+      "role": "user",
+      "content": "Tanyakan Saja?"
+    }
+  ]
+};
+
+const response = await fetch(url, {
   method: "POST",
-  headers: {
-    "Authorization": "Bearer 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",
-    "HTTP-Referer": "https://teknoaiglobal.com", // Optional. Site URL for rankings on openrouter.ai.
-    "X-Title": "Tekno Ai Global", // Optional. Site title for rankings on openrouter.ai.
-    "Content-Type": "application/json"
-  },
-  body: JSON.stringify({
-    "model": "deepseek/deepseek-r1:free",
-    "messages": [
-      {
-        "role": "user",
-        "content": "What is the meaning of life?"
-      }
-    ]
-  })
+  headers,
+  body: JSON.stringify(payload)
 });
+
+const data = await response.json();
+console.log(data);
         } catch (error) {
           responseDiv.innerHTML = "Error: " + error.message;
         }
